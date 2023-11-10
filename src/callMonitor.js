@@ -23,7 +23,7 @@ export async function CallMonitor() {
 
       if (message.channel.name != "preciso-de-ajuda") return;
 
-      if (message.content === '!addHelper') {
+      if (message.content === '!addHelperr') {
         const Embed = new EmbedBuilder()
           .setColor(0xfd3c23)
           .setTitle("Precisa de ajuda?")
@@ -36,16 +36,16 @@ export async function CallMonitor() {
     client.on('messageReactionAdd', async (reaction, user) => {
       if (reaction.message.partial) reaction.message.fetch();
       if (reaction.partial) reaction.fetch();
-
+      
       if (user.bot) return;
       if (!reaction.message.guild) return;
-
+      
       const fullMessage = await reaction.message.fetch();
       if (!fullMessage.embeds[0]) return;
       if (fullMessage.embeds[0].title != "Precisa de ajuda?") return
 
       if (reaction.message.guild.id === GUILD_ID && REACTION_ROLE_MAPPING[reaction.emoji.name]) {
-        const sendMessage = (`<@&${REACTION_ROLE_MAPPING[reaction.emoji.name]}>`)
+        const sendMessage = (`<@&${REACTION_ROLE_MAPPING[reaction.emoji.name]}> o membro ${user} está te chamando!`)
         await fullMessage.channel.send(sendMessage).then(msg => setTimeout(() => {
           msg.delete();
         }, "300000")
