@@ -23,7 +23,7 @@ export async function CallMonitor() {
 
       if (message.channel.name != "preciso-de-ajuda") return;
 
-      if (message.content === '!addHelperr') {
+      if (message.content === '!addHelper') {
         const Embed = new EmbedBuilder()
           .setColor(0xfd3c23)
           .setTitle("Precisa de ajuda?")

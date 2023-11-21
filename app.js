@@ -8,4 +8,11 @@ const app = () => {
     NotifyNewMember()
 }
 
-app()
+try {
+    app()
+} catch (error) {
+    console.log("Deu ruim no app!")
+    console.log(error)
+    app()
+}
+
