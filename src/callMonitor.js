@@ -36,10 +36,10 @@ export async function CallMonitor() {
     client.on('messageReactionAdd', async (reaction, user) => {
       if (reaction.message.partial) reaction.message.fetch();
       if (reaction.partial) reaction.fetch();
-      
+
       if (user.bot) return;
       if (!reaction.message.guild) return;
-      
+
       const fullMessage = await reaction.message.fetch();
       if (!fullMessage.embeds[0]) return;
       if (fullMessage.embeds[0].title != "Precisa de ajuda?") return
@@ -47,7 +47,9 @@ export async function CallMonitor() {
       if (reaction.message.guild.id === GUILD_ID && REACTION_ROLE_MAPPING[reaction.emoji.name]) {
         const sendMessage = (`<@&${REACTION_ROLE_MAPPING[reaction.emoji.name]}> o membro ${user} está te chamando!`)
         await fullMessage.channel.send(sendMessage).then(msg => setTimeout(() => {
-          msg.delete();
+          msg.delete()
+            .then(() => console.log(`Deleted message from ${user.username}`))
+            .catch(() => console.log('Message not found or already deleted'));
         }, "300000")
         )
       }
